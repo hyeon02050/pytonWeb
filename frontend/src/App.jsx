@@ -16,19 +16,23 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content: input }),
     })
-    .then(() => {
-      setMemos([...memos, { content: input }]);
+    .then((res) => res.json())
+    .then((data) => {
+      // 🆕 서버가 돌려준 진짜 ID를 사용해서 목록에 추가
+      const newMemo = { id: data.id, content: input };
+      setMemos([...memos, newMemo]);
       setInput("");
     });
   };
 
-  const handleReset = () => {
-    fetch("http://127.0.0.1:8000/memos", {
+  // 🆕 특정 메모 하나만 지우는 함수
+  const handleDelete = (id) => {
+    fetch(`http://127.0.0.1:8000/memos/${id}`, { // 주소 끝에 ID를 붙임
       method: "DELETE",
     })
     .then(() => {
-      // 서버가 "삭제했다"고 응답하면, 내 화면(State)도 비워줘야 합니다.
-      setMemos([]); 
+      // 화면에서도 그 녀석만 쏙 빼고 다시 그리기 (Filter 함수 사용)
+      setMemos(memos.filter((memo) => memo.id !== id));
     });
   };
 
@@ -40,22 +44,24 @@ function App() {
         onChange={(e) => setInput(e.target.value)} 
       />
       <button onClick={handleSubmit}>남기기</button>
-      <button 
-        onClick={handleReset} 
-        style={{ marginLeft: "10px", backgroundColor: "#ffdddd" }}
-      >
-        초기화 🗑️
-      </button>
+      
       <ul>
-        {memos.map((memo, index) => (
-          <li key={index}>{memo.content}</li>
+        {memos.map((memo) => (
+          // key값은 이제 고유한 id를 쓰는 게 정석입니다.
+          <li key={memo.id} style={{ marginBottom: "5px" }}>
+            {memo.content} 
+            {/* 🆕 각 항목 옆에 삭제 버튼 달기 */}
+            <button 
+              onClick={() => handleDelete(memo.id)} 
+              style={{ marginLeft: "10px", cursor: "pointer" }}
+            >
+              ❌
+            </button>
+          </li>
         ))}
       </ul>
-
     </div>
-    
-
-);
+  );
 }
 
 export default App;
