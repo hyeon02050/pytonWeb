@@ -26,3 +26,8 @@ def get_memos():
 def create_memo(memo: Memo):
     memos.append(memo)
     return {"message": "저장 완료"}
+
+@app.delete("/memos")  # DELETE 방식으로 /memos 요청이 오면
+def clear_memos():
+    memos.clear()      # 리스트를 싹 비운다
+    return {"message": "모두 삭제되었습니다!"}

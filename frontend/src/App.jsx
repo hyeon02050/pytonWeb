@@ -22,6 +22,16 @@ function App() {
     });
   };
 
+  const handleReset = () => {
+    fetch("http://127.0.0.1:8000/memos", {
+      method: "DELETE",
+    })
+    .then(() => {
+      // 서버가 "삭제했다"고 응답하면, 내 화면(State)도 비워줘야 합니다.
+      setMemos([]); 
+    });
+  };
+
   return (
     <div style={{ padding: "20px" }}>
       <h1> 한 줄 방명록</h1>
@@ -30,13 +40,22 @@ function App() {
         onChange={(e) => setInput(e.target.value)} 
       />
       <button onClick={handleSubmit}>남기기</button>
+      <button 
+        onClick={handleReset} 
+        style={{ marginLeft: "10px", backgroundColor: "#ffdddd" }}
+      >
+        초기화 🗑️
+      </button>
       <ul>
         {memos.map((memo, index) => (
           <li key={index}>{memo.content}</li>
         ))}
       </ul>
+
     </div>
-  );
+    
+
+);
 }
 
 export default App;
