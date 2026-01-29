@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Guestbook from './pages/Guestbook';
 import Board from './pages/Board';
 import PostDetail from './pages/PostDetail';
+import PostWrite from './pages/PostWrite';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/guestbook" element={<Guestbook />} />
           <Route path="/board" element={<Board />} />
           <Route path="/posts/:id" element={<PostDetail />} />
+          <Route path="/write" element={<PostWrite />} />
         </Routes>
       </div>
     </BrowserRouter>
