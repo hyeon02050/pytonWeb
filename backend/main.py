@@ -52,3 +52,41 @@ def create_memo(memo: Memo):
 def delete_memo(memo_id: str):
     db.collection('memos').document(memo_id).delete()
     return {"message": "삭제 성공"}
+
+class Post(BaseModel):
+    title: str
+    content: str
+    author: str
+
+# 2. 게시글 작성 (POST)
+@app.post("/posts")
+def create_post(post: Post):
+    # 'posts'라는 새로운 컬렉션(폴더)에 저장
+    doc_ref = db.collection("posts").document()
+    doc_ref.set(post.dict())
+    return {"id": doc_ref.id, "title": post.title, "content": post.content, "author": post.author}
+
+# 3. 게시글 조회 (GET)
+@app.get("/posts")
+def get_posts():
+    docs = db.collection("posts").stream()
+    posts = []
+    for doc in docs:
+        post_data = doc.to_dict()
+        post_data["id"] = doc.id
+        posts.append(post_data)
+    return posts
+
+# 4. 게시글 삭제 (DELETE)
+@app.delete("/posts/{post_id}")
+def delete_post(post_id: str):
+    db.collection("posts").document(post_id).delete()
+    return {"message": "Deleted successfully"}
+
+# 5. 특정 게시글 1개 조회 (GET)
+@app.get("/posts/{post_id}")
+def get_post(post_id: str):
+    doc = db.collection("posts").document(post_id).get()
+    if doc.exists:
+        return doc.to_dict()
+    return {"error": "Post not found"}

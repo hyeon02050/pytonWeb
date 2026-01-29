@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Guestbook from './pages/Guestbook';
+import Board from './pages/Board';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           {/* 2. 주소 규칙 정의 */}
           <Route path="/" element={<Home />} />
           <Route path="/guestbook" element={<Guestbook />} />
+          <Route path="/board" element={<Board />} />
+          <Route path="/posts/:id" element={<PostDetail />} />
         </Routes>
       </div>
     </BrowserRouter>

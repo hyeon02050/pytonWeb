@@ -44,7 +44,7 @@ function Guestbook() {
         {/* 헤더 */}
         <div className="bg-indigo-600 p-6">
           <h1 className="text-2xl font-bold text-white text-center">
-            📝 오늘의 한마디
+            📝 아무거나 써라 ㅋ
           </h1>
           <p className="text-indigo-200 text-center text-sm mt-1">
             FastAPI + React + Firebase
@@ -60,7 +60,7 @@ function Guestbook() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSubmit()} // 엔터키 지원
               className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              placeholder="오늘 기분 어때요?"
+              placeholder="쓰고 싶은거 써"
             />
             <button 
               onClick={handleSubmit}

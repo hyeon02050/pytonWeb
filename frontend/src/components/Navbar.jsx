@@ -20,6 +20,9 @@ function Navbar() {
             <Link to="/guestbook" className="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">
               방명록
             </Link>
+            <Link to="/board" className="text-gray-600 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium">
+             게시판
+            </Link>
           </div>
         </div>
       </div>
