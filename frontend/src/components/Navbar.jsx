@@ -42,7 +42,7 @@ function Navbar() {
               방명록
             </Link>
             <Link to="/board" className="text-gray-700 text-base font-medium hover:text-blue-600 transition-colors">
-              연락
+              게시판
             </Link>
           </div>
 
